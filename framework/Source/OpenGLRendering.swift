@@ -17,9 +17,9 @@
 
 import Foundation
 
-struct InputTextureProperties {
-    let textureCoordinates:[GLfloat]
-    let texture:GLuint
+public struct InputTextureProperties {
+    public let textureCoordinates:[GLfloat]
+    public let texture:GLuint
 }
 
 public struct GLSize {
@@ -114,7 +114,7 @@ func disableStencil() {
     glDisable(GLenum(GL_STENCIL_TEST))
 }
 
-func textureUnitForIndex(_ index:Int) -> GLenum {
+public func textureUnitForIndex(_ index:Int) -> GLenum {
     switch index {
         case 0: return GLenum(GL_TEXTURE0)
         case 1: return GLenum(GL_TEXTURE1)
@@ -194,7 +194,7 @@ func attachStencilBuffer(width:GLint, height:GLint) throws -> GLuint {
 }
 
 extension String {
-    func withNonZeroSuffix(_ suffix:Int) -> String {
+    public func withNonZeroSuffix(_ suffix:Int) -> String {
         if suffix == 0 {
             return self
         } else {

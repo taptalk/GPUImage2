@@ -41,7 +41,7 @@ open class BasicOperation: ImageProcessingOperation {
 
     public let targets = TargetContainer()
     public let sources = SourceContainer()
-    var shader:ShaderProgram
+    public var shader:ShaderProgram
     var inputFramebuffers = [UInt:Framebuffer]()
     var renderFramebuffer:Framebuffer!
     var outputFramebuffer:Framebuffer { get { return renderFramebuffer } }
@@ -128,6 +128,10 @@ open class BasicOperation: ImageProcessingOperation {
         releaseIncomingFramebuffers()
     }
     
+    public func renderQuad(inverted: Bool) {
+        renderQuadWithShader(shader, uniformSettings:uniformSettings, vertices:inverted ? verticallyInvertedImageVertices : standardImageVertices, inputTextures:initialTextureProperties())
+    }
+    
     func releaseIncomingFramebuffers() {
         var remainingFramebuffers = [UInt:Framebuffer]()
         // If all inputs are still images, have this output behave as one
@@ -159,7 +163,7 @@ open class BasicOperation: ImageProcessingOperation {
         }
     }
     
-    func initialTextureProperties() -> [InputTextureProperties] {
+    public func initialTextureProperties() -> [InputTextureProperties] {
         var inputTextureProperties = [InputTextureProperties]()
         
         if let outputRotation = overriddenOutputRotation {
